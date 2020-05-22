@@ -16,12 +16,16 @@ Public Endpoints:
 
 Login
 URL:  http://localhost:3000/api/auth/login,
+
 Method: POST,
+
 Data Param’s: 
+
 Required 
 Username [string]
 Required 
 Password [string]
+
 Sample Body: 
 {
 “username”:”test@test.com”,
@@ -33,6 +37,7 @@ content: {
 "auth": true,
 "token": "--------------------JWT token -----------"
 }
+
 Error Response: 
 
 If parameters are undefined – error code: 500 Internal server 
@@ -45,13 +50,17 @@ Note: Send JWT token (received at public login endpoint) in header as ‘x-acces
 APPLY JSONPATCH
 
 URL:  http://localhost:3000/api/auth/applyjsonpatch,
+
 Method: POST,
+
 Data Param’s: 
 Required 
 jsonObject [json object]
 Required 
 jsonPatch [json patch]
+
 Note: please send correct json and jsonpatch formats.
+
 Sample Body: 
 
 {
@@ -60,27 +69,37 @@ jsonPatch: { "op": "replace", "path": "/baz", "value": "boo" }
 }
 
 Success Response: 
+
 code: 200, 
+
 content: {“”} (modified jsonobject)
+
 Error Response: If parameters are undefined – error code: 500 Internal server error message: Please send jsonObject, jsonPatch.
+
 If values are not correct format – error code: 500 Internal server error message.
 
 CREATE THUMBNAIL
 
 URL:  http://localhost:3000/api/auth/createthumbnail,
+
 Method: POST,
+
 Data Param’s: 
+
 Required 
 imageUri [public image URL]
 Note: please send public image url as imageUri.
+
 Sample Body: 
 
 {
   “imageUri”: “https://www.google.com/images/srpr/logo3w.png”
 }
+
 Success Response:  
 
 code: 200,
+
 Content: 
 
 image 
