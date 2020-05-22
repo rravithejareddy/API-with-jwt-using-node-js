@@ -53,10 +53,8 @@ router.post('/createthumbnail', VerifyToken, function (req, res, next) {
   }
 
   let uri = req.body.imageUri;
-  console.log(uri);
   let pathname = url.parse(uri, [false], [false]).pathname;
   let imageName = path.basename(pathname);
-  console.log(imageName);
 
   download(uri, imageName, function () {
     console.log('done');
