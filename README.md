@@ -107,4 +107,5 @@ Error Response: If parameters are undefined – error code: 500 Internal server 
 If error at image resize – error code: 500 Internal server error message.
 
 HackerBay NodeTask API Testing
+
 use npm test cmd to test the app using mocha and chai.
