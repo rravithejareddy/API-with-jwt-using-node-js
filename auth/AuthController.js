@@ -11,19 +11,13 @@ var easyimg = require('easyimage');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json({ type: ['json', '+json'] }));
 
-
-
-/**
- * Configure JWT
- */
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var jsonPatch = require("json-patch")
 var bcrypt = require('bcryptjs');
 var config = require('../config'); // get config file
 
 router.post('/login', function (req, res) {
-  console.log(req.body.userName)
-  if (req.body.userName == undefined && req.body.Password == undefined) {
+  if (req.body.username == undefined && req.body.password == undefined) {
     res.status(500).send('Plese send username and password.');
   }
   // create a token
@@ -35,36 +29,29 @@ router.post('/login', function (req, res) {
   res.status(200).send({ auth: true, token: token });
 });
 
-
 router.post('/applyjsonpatch', VerifyToken, function (req, res, next) {
-
   if (req.body.jsonObject == undefined && req.body.jsonObject == undefined) {
     res.status(500).send('Plese send jsonObject,jsonPatch parameters.');
   }
+
   let JsonObject = JSON.parse(req.body.jsonObject);
   let JsonPatch = JSON.parse(req.body.jsonPatch);
-  console.log(JsonObject);
-  console.log(JsonPatch);
   let resultJsonObject = jsonPatch.apply(JsonObject, [JsonPatch]);
 
   res.status(200).send(resultJsonObject);
 });
 
-
 var download = function (uri, filename, callback) {
   request.head(uri, function (err, res, body) {
-    console.log('content-type:', res.headers['content-type']);
-    console.log('content-length:', res.headers['content-length']);
-
-    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+       request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
   });
 };
-
 
 router.post('/createthumbnail', VerifyToken, function (req, res, next) {
   if (req.body.imageUri == undefined) {
     res.status(500).send('Plese send imageUri.');
   }
+
   let uri = req.body.imageUri;
   console.log(uri);
   let pathname = url.parse(uri, [false], [false]).pathname;
@@ -82,9 +69,7 @@ router.post('/createthumbnail', VerifyToken, function (req, res, next) {
     x: 0, y: 0
   }).then(
     function (image) {
-
       res.status(200).sendFile(__root + './thumbnail_' + imageName);
-
     },
     function (err) {
       res.status(500).send('Error on the server.');
